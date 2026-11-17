@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme {
+  --color-wine-950: #1f0307;
+  --color-wine-900: #3a060e;
+  --color-wine-800: #560a16;
+  --color-wine-700: #6d0f1f;
+  --color-wine-600: #8a1426;
+  --color-wine-500: #a3172b;
+  --color-blush-300: #f4d3cd;
+  --color-blush-200: #f8e2dd;
+  --color-blush-100: #fcefec;
+  --color-cream-50: #fffbf4;
+  --color-cream-100: #fbf5ec;
+  --color-cream-200: #f3e8d6;
+  --color-gold-300: #ecd79e;
+  --color-gold-400: #dcbf72;
+  --color-gold-500: #c9a24b;
+  --color-gold-600: #a8822f;
+  --color-gold-700: #7d5f1f;
+  --color-leaf-600: #4f6b3a;
+
+  --font-script: var(--font-great-vibes), cursive;
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-display: var(--font-cinzel), Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--color-cream-100);
+  color: var(--color-wine-900);
+  font-family: var(--font-serif);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-wine-600);
+  color: var(--color-cream-50);
+}
+
+@layer utilities {
+  .text-gold-gradient {
+    background: linear-gradient(100deg, #a8822f 0%, #ecd79e 35%, #c9a24b 55%, #f3e3b0 75%, #a8822f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* Script swashes overflow the text box; pad so the clipped gradient covers them. */
+    padding: 0.1em 0.3em;
+    margin-inline: -0.3em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  .bg-paper {
+    background-color: var(--color-cream-100);
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgb(255 255 255 / 0.7), transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgb(244 211 205 / 0.35), transparent 55%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .bg-velvet {
+    background-color: var(--color-wine-800);
+    background-image:
+      radial-gradient(ellipse at 50% 35%, rgb(163 23 43 / 0.55), transparent 65%),
+      radial-gradient(ellipse at 50% 120%, rgb(31 3 7 / 0.9), transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23e8c87a' stroke-opacity='0.07' stroke-width='1'%3E%3Cpath d='M40 6c8 10 8 20 0 30-8-10-8-20 0-30zM40 74c8-10 8-20 0-30-8 10-8 20 0 30zM6 40c10-8 20-8 30 0-10 8-20 8-30 0zM74 40c-10-8-20-8-30 0 10 8 20 8 30 0z'/%3E%3Ccircle cx='40' cy='40' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .gold-frame {
+    box-shadow:
+      inset 0 0 0 1px rgb(201 162 75 / 0.55),
+      inset 0 0 0 6px var(--color-cream-50),
+      inset 0 0 0 7px rgb(201 162 75 / 0.35);
+  }
+}
+
+.petal {
+  will-change: transform, opacity;
+  animation-name: petal-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.9;
+  }
+  33% {
+    transform: translate3d(var(--sway), 32vh, 0) rotate(calc(var(--spin) * 0.33));
+  }
+  66% {
+    transform: translate3d(calc(var(--sway) * -0.5), 73vh, 0) rotate(calc(var(--spin) * 0.66));
+  }
+  88% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(calc(var(--sway) / 3), 115vh, 0) rotate(var(--spin));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
